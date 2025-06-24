@@ -8,7 +8,11 @@
 // DO NOT erase or modify the signatures of the public methods.
 // DO NOT modify the preprocessors in this file.
 // DO NOT use the preprocessors in your other code files.
-// 
+//
+
+#include "Hash_table.h"
+#include "Genre.h"
+#include "Song.h"
 
 #ifndef DSPOTIFY25SPRING_WET2_H_
 #define DSPOTIFY25SPRING_WET2_H_
@@ -17,9 +21,8 @@
 
 class DSpotify {
 private:
-    //
-    // Here you may add anything you want
-    //
+    Hash_table<Genre> genre_table;
+    Hash_table<Song> song_table;
     
 public:
     // <DO-NOT-MODIFY> {

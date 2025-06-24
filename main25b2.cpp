@@ -1,11 +1,11 @@
-// 
+//
 // 234218 Data Structures 1.
 // Semester: 2025B (Spring).
 // Wet Exercise #.
-// 
+//
 // The following main file is necessary to link and run your code.
 // This file is READ ONLY: even if you submit something else, the compiler will use our file.
-// 
+//
 
 #include "dspotify25b2.h"
 #include <string>
@@ -18,12 +18,12 @@ void print(string cmd, output_t<int> res);
 
 int main()
 {
-    
+
     int d1, d2, d3;
 
     // Init
     DSpotify *obj = new DSpotify();
-    
+
     // Execute all commands in file
     string op;
     while (cin >> op)
@@ -57,21 +57,21 @@ int main()
         }
     }
 
-    // Quit 
+    // Quit
     delete obj;
     return 0;
 }
 
 // Helpers
 static const char *StatusTypeStr[] =
-{
-    "SUCCESS",
-    "ALLOCATION_ERROR",
-    "INVALID_INPUT",
-    "FAILURE"
-};
+        {
+                "SUCCESS",
+                "ALLOCATION_ERROR",
+                "INVALID_INPUT",
+                "FAILURE"
+        };
 
-void print(string cmd, StatusType res) 
+void print(string cmd, StatusType res)
 {
     cout << cmd << ": " << StatusTypeStr[(int) res] << endl;
 }
