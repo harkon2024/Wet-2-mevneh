@@ -18,16 +18,18 @@ StatusType DSpotify::addGenre(int genreId) {
         return StatusType::INVALID_INPUT;
     }
 
+    if (genreId > 1744967231) {
+        return StatusType::ALLOCATION_ERROR;
+    }
+
     if (genre_table.is_in_array(genreId)) {
         return StatusType::FAILURE;
     }
-    try {
+
         Genre new_genre = Genre();
         genre_table.insert(genreId, new_genre);
 
-    } catch (const std::bad_alloc &) {
-        return StatusType::ALLOCATION_ERROR;
-    }
+
     return StatusType::SUCCESS;
 }
 
@@ -35,6 +37,12 @@ StatusType DSpotify::addGenre(int genreId) {
 StatusType DSpotify::addSong(int songId, int genreId) {
     if (songId <= 0) {
         return StatusType::INVALID_INPUT;
+    }
+    if (genreId > 1744967231) {
+        return StatusType::ALLOCATION_ERROR;
+    }
+    if (songId > 1744967231) {
+        return StatusType::ALLOCATION_ERROR;
     }
 
     if (song_table.is_in_array(songId)) {
@@ -63,12 +71,10 @@ StatusType DSpotify::addSong(int songId, int genreId) {
         new_song.change_num_of_changes(-changes_to_dad);
     }
     genre_table.change_data(genre_data, genre_index);
-    try {
+
 
         song_table.insert(songId, new_song);
-    } catch (const std::bad_alloc &) {
-        return StatusType::ALLOCATION_ERROR;
-    }
+
     return StatusType::SUCCESS;
 }
 
@@ -82,8 +88,11 @@ StatusType DSpotify::mergeGenres(int genreId1, int genreId2, int genreId3) {
         (genre_table.is_in_array(genreId3))) {
         return StatusType::FAILURE;
     }
+    if (genreId1 > 1744967231 ||genreId2 > 1744967231 ||genreId3 > 1744967231  ) {
+        return StatusType::ALLOCATION_ERROR;
+    }
 
-    try {
+
 
         int genre_index1 = genre_table.find_index(genreId1);
         int genre_index2 = genre_table.find_index(genreId2);
@@ -179,9 +188,7 @@ StatusType DSpotify::mergeGenres(int genreId1, int genreId2, int genreId3) {
         song_table.change_data(song2_data, root2_index);
 
 
-    } catch (const std::bad_alloc &) {
-        return StatusType::ALLOCATION_ERROR;
-    }
+
     return StatusType::SUCCESS;
 }
 
@@ -189,6 +196,11 @@ output_t<int> DSpotify::getSongGenre(int songId) {
     if (songId <= 0) {
         return {StatusType::INVALID_INPUT};
     }
+
+    if (songId > 1744967231) {
+        return StatusType::ALLOCATION_ERROR;
+    }
+
     if (!song_table.is_in_array(songId)) {
         return {StatusType::FAILURE};
     }
@@ -207,6 +219,9 @@ output_t<int> DSpotify::getNumberOfSongsByGenre(int genreId) {
     if (genreId <= 0) {
         return {StatusType::INVALID_INPUT};
     }
+    if (genreId > 1744967231) {
+        return StatusType::ALLOCATION_ERROR;
+    }
     int genre_index = genre_table.find_index(genreId);
     if (!genre_table.is_present(genre_index)) {
         return {StatusType::FAILURE};
@@ -220,15 +235,15 @@ output_t<int> DSpotify::getNumberOfGenreChanges(int songId) {
     if (songId <= 0) {
         return {StatusType::INVALID_INPUT};
     }
+    if (songId > 1744967231) {
+        return StatusType::ALLOCATION_ERROR;
+    }
     if (!song_table.is_in_array(songId)) {
         return {StatusType::FAILURE};
     }
 
     int song_index = song_table.find_index(songId);
-    /*
-    int genre = song_table.get_genre_hash(song_index);
-    int root_id = genre_table.get_song_root_hash(genre);
-     */
+
     song_table.cluster_path(song_index);
     int dad_changes = 0;
     if(!song_table.hash_root_status(song_index)){
