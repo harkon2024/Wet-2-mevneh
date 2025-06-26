@@ -23,7 +23,7 @@ private:
     Cell *array = nullptr;
     int num_elements = 0;
     int array_size = 0;
-    const float size_percent = 0.7;
+    float size_percent = 0.7;
     PrimeArray prime_array;
 
 public:
@@ -64,7 +64,6 @@ public:
     }
 
     int insert(int key, const T &data) {
-
         if (float(num_elements + 1) / array_size >= size_percent) {
             resize();
         }
@@ -81,6 +80,10 @@ public:
     void resize() {
         prime_index++;
         int new_array_size = prime_array.get_prime(prime_index);
+
+        if (new_array_size == 1744967231) {
+            size_percent = 1.0f;
+        }
 
         Cell *old_array = array;
         int old_size = array_size;
@@ -198,6 +201,10 @@ public:
     int get_song_root_hash(int genre_id) {
         int index = find_index(genre_id);
         return array[index].data.get_song_root();
+    }
+
+  int  get_num_elements(){
+        return num_elements;
     }
 
 };
