@@ -65,7 +65,12 @@ public:
 
     int insert(int key, const T &data) {
         if (float(num_elements + 1) / array_size >= size_percent) {
-            resize();
+            if (array_size == 1744967231) {
+                size_percent = 1.0f;
+            }
+           else{
+               resize();
+           }
         }
         int index = find_index(key);
         array[index].key = key;
@@ -80,10 +85,6 @@ public:
     void resize() {
         prime_index++;
         int new_array_size = prime_array.get_prime(prime_index);
-
-        if (new_array_size == 1744967231) {
-            size_percent = 1.0f;
-        }
 
         Cell *old_array = array;
         int old_size = array_size;
